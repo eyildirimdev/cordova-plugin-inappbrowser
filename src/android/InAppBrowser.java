@@ -134,7 +134,7 @@ public class InAppBrowser extends CordovaPlugin {
     private boolean showFooter = false;
     private String footerColor = "";
     private String[] allowedSchemes;
-
+    private PluginResult.Status showDialogResult;
     /**
      * Executes the request and returns PluginResult.
      *
@@ -276,7 +276,7 @@ public class InAppBrowser extends CordovaPlugin {
             injectDeferredObject(args.getString(0), jsWrapper);
         }
         else if (action.equals("show")) {
-          PluginResult.Status result = PluginResult.Status.OK;
+           showDialogResult = PluginResult.Status.OK;
             this.cordova.getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -284,13 +284,13 @@ public class InAppBrowser extends CordovaPlugin {
                         dialog.show();
 
                     }else{
-                        result = PluginResult.Status.ERROR;
+                        showDialogResult = PluginResult.Status.ERROR;
                     }
 
                 }
             });
 
-            PluginResult pluginResult = new PluginResult(result);
+            PluginResult pluginResult = new PluginResult(showDialogResult);
             pluginResult.setKeepCallback(true);
             this.callbackContext.sendPluginResult(pluginResult);
         }
