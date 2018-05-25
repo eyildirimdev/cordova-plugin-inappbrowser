@@ -276,13 +276,21 @@ public class InAppBrowser extends CordovaPlugin {
             injectDeferredObject(args.getString(0), jsWrapper);
         }
         else if (action.equals("show")) {
+          PluginResult.Status result = PluginResult.Status.OK;
             this.cordova.getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    dialog.show();
+                    if (dialog != null){
+                        dialog.show();
+
+                    }else{
+                        result = PluginResult.Status.ERROR;
+                    }
+
                 }
             });
-            PluginResult pluginResult = new PluginResult(PluginResult.Status.OK);
+
+            PluginResult pluginResult = new PluginResult(result);
             pluginResult.setKeepCallback(true);
             this.callbackContext.sendPluginResult(pluginResult);
         }
