@@ -282,9 +282,10 @@ public class InAppBrowser extends CordovaPlugin {
                 public void run() {
                     if (dialog != null){
                         dialog.show();
-
+                        LOG.e(LOG_TAG, "HASAN ABI DIALOG IS NOT NULL!!");
                     }else{
                         showDialogResult = PluginResult.Status.ERROR;
+                        LOG.e(LOG_TAG, "HASAN ABI DIALOG IS NULL!!");
                     }
 
                 }
